@@ -4,17 +4,15 @@
 [![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
 [![dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg?style=flat-square)](package.json)
 [![install size](https://packagephobia.com/badge?p=@substrate-system/button)](https://packagephobia.com/result?p=@substrate-system/button)
+![GZip size](https://img.badgesize.io/https%3A%2F%2Fesm.sh%2F%40substrate-system%2Fbutton%2Fes2022%2Fbutton.mjs%3Fstyle%3Dflat%26compression%3Dgzip?compression=gzip&style=flat-square)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
-![GZip size](https://img.badgesize.com/substrate-system/button/main/README.md?compression=gzip)
 [![license](https://img.shields.io/badge/license-Polyform_Small_Business-249fbc?style=flat-square)](LICENSE)
 
 
 A button web component, with a visual "loading" state.
 
 [See a live demo](https://substrate-system.github.io/button/)
-
-https://img.badgesize.io/:fileurl[:ext]?compression=gzip&style=flat
 
 <!-- toc -->
 
