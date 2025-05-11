@@ -16,15 +16,15 @@ A button web component, with a visual "loading" state.
 
 <!-- toc -->
 
-- [install](#install)
+- [Install](#install)
+- [Dependencies](#dependencies)
 - [API](#api)
   * [ESM](#esm)
   * [Common JS](#common-js)
 - [CSS](#css)
   * [Import CSS](#import-css)
   * [Customize CSS via some variables](#customize-css-via-some-variables)
-- [use](#use)
-  * [JS](#js)
+- [Use](#use)
   * [HTML](#html)
   * [pre-built](#pre-built)
 
