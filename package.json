@@ -6,6 +6,25 @@
   "files": [
     "./dist/*"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./min": "./dist/index.min.js",
+    "./css": "./dist/index.css",
+    "./css/min": "./dist/index.min.css",
+    "./*": {
+      "import": [
+        "./dist/*.js",
+        "./dist/*"
+      ],
+      "require": [
+        "./dist/*.cjs",
+        "./dist/*"
+      ]
+    }
+  },
   "scripts": {
     "lint": "eslint \"./**/*.{ts,js}\"",
     "test": "npm run build && npm run build-tests && npm run test-tape-run",
@@ -23,26 +42,11 @@
     "toc": "markdown-toc --maxdepth 3 -i README.md",
     "preversion": "npm run lint && stylelint src/*.css",
     "version": "npm run toc && auto-changelog -p --template keepachangelog --breaking-pattern 'BREAKING CHANGE:' && git add CHANGELOG.md README.md",
-    "postversion": "git push --follow-tags && npm publish",
+    "postversion": "git push --follow-tags && export $(cat .env | xargs) && npm publish && npm publish --@substrate-system:registry=https://registry.npmjs.org/\"",
     "prepublishOnly": "npm run build"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./css": "./dist/index.css",
-    "./css/min": "./dist/index.min.css",
-    "./*": {
-      "import": [
-        "./dist/*.js",
-        "./dist/*"
-      ],
-      "require": [
-        "./dist/*.cjs",
-        "./dist/*"
-      ]
-    }
+  "publishConfig": {
+    "registry": "http://nexus.dsv.myhost/nexus/repository/npmjs"
   },
   "dependencies": {},
   "devDependencies": {
