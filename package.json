@@ -42,7 +42,7 @@
     "toc": "markdown-toc --maxdepth 3 -i README.md",
     "preversion": "npm run lint && stylelint src/*.css",
     "version": "npm run toc && auto-changelog -p --template keepachangelog --breaking-pattern 'BREAKING CHANGE:' && git add CHANGELOG.md README.md",
-    "postversion": "git push --follow-tags && export $(cat .env | xargs) && npm publish && npm publish --@substrate-system:registry=https://registry.npmjs.org/\"",
+    "postversion": "git push --follow-tags && export $(cat .env | xargs) && npm publish && npm publish --@substrate-system:registry=\"https://registry.npmjs.org/\"",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
