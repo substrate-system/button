@@ -45,9 +45,6 @@
     "postversion": "git push --follow-tags && export $(cat .env | xargs) && npm publish && npm publish --@substrate-system:registry=\"https://registry.npmjs.org/\"",
     "prepublishOnly": "npm run build"
   },
-  "publishConfig": {
-    "registry": "http://nexus.dsv.myhost/nexus/repository/npmjs"
-  },
   "dependencies": {},
   "devDependencies": {
     "@bicycle-codes/dom": "^0.1.2",
@@ -73,5 +70,5 @@
     "vite": "^6.0.11"
   },
   "author": "nichoth <nichoth@nichoth.com> (https://nichoth.com)",
-  "license": "MIT"
+  "license": "SEE LICENSE IN LICENSE"
 }

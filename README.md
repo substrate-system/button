@@ -14,6 +14,8 @@ A button web component, with a visual "loading" state.
 
 [See a live demo](https://substrate-system.github.io/button/)
 
+https://img.badgesize.io/:fileurl[:ext]?compression=gzip&style=flat
+
 <!-- toc -->
 
 - [Install](#install)
