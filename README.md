@@ -11,6 +11,9 @@
 
 A button web component, with a visual "loading" state.
 
+* `aria-disabled="false"`
+
+
 [See a live demo](https://substrate-system.github.io/button/)
 
 <!-- toc -->
@@ -29,12 +32,28 @@ A button web component, with a visual "loading" state.
 
 <!-- tocstop -->
 
-## install
-
-Installation instructions
+## Install
 
 ```sh
 npm i -S @substrate-system/button
+```
+
+## Dependencies
+
+Depends on these CSS variables, which are exposed in the
+[@substrate-system/css](https://github.com/substrate-system/css) package.
+
+```css
+:root {
+  --substrate-medium: #999da0;
+  --substrate-button-text: #36393d;
+  --substrate-primary: #36393d;
+  --substrate-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --substrate-button-background: #f5f5f5;
+  --substrate-button-shadow: #00000054;
+  --substrate-button-background-focus: #ededed;
+  --substrate-button-background-hover: #e6e6e6;
+}
 ```
 
 ## API
@@ -73,7 +92,14 @@ substrate-button {
 ```
 
 ## Use
-You will need to set a name for this custom element. To use the default, call
+
+You will need to set a name for this custom element.
+
+> [!CAUTION]  
+> If you change the name of the web component, it will break the CSS.
+
+
+To use the default, call
 `.define()`:
 
 ```js
@@ -90,13 +116,6 @@ import { SubstrateButton } from '@substrate-system/button'
 // set a custom name
 SubstrateButton.tag = 'cool-button'
 
-SubstrateButton.define()
-```
-
-
-### JS
-```js
-import { SubstrateButton } from '@substrate-system/button'
 SubstrateButton.define()
 ```
 

@@ -1,3 +1,122 @@
-substrate-button {
-    background-color: red;
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+@keyframes substrate-button-activate {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+substrate-button {
+    display: inline-block;
+    user-select: none;
+    min-width: 8rem;
+
+    &.substrate-loading {
+        pointer-events: none;
+
+        & button {
+            color: transparent;
+            transition: all 0.3s ease;
+            pointer-events: none;
+
+            &:hover {
+                color: transparent;
+                background: var(--substrate-medium, #999da0)!important;
+            }
+
+            &::after {
+                content: "";
+                background: transparent;
+                box-sizing: border-box;
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                inset: 0;
+                margin: auto;
+                border-radius: 50%;
+                border-top: 2px solid black;
+                border-right: 2px solid transparent;
+                animation: spinner 0.6s linear infinite;
+            }
+        }
+    }
+
+    & button {
+        border: 1px solid black;
+        color: var(--substrate-button-text, var(--substrate-primary, #36393d));
+        width: 100%;
+        font-family: var(--substrate-font, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif);
+        padding: 0.5em 1em;
+        position: relative;
+        background-color: var(--substrate-button-background, transparent);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        box-shadow: 0 1px 2px var(--substrate-button-shadow);
+        appearance: none;
+
+        &:focus {
+            background-color: var(--substrate-button-background-focus, #f7f7f5);
+            outline: none;
+        }
+
+        &[disabled], &:active {
+            color: var(--substrate-medium, #999da0);
+            background-color: var(--substrate-button-background-disabled, #f7f7f5);
+        }
+
+        &:active {
+            animation-duration: .2s;
+            animation-name: substrate-button-activate;
+            transition-timing-function: ease;
+        }
+
+        &[type="icon"] {
+            & button {
+                background: none;
+                box-shadow: none;
+            }
+
+            & substrate-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        &:not([disabled]):hover {
+            background-color: var(--substrate-button-background-hover, #e6e6e6)!important;
+            cursor: pointer;
+        }
+    }
+
+    &[aria-disabled="true"] {
+        user-select: none;
+        background-color: transparent;
+
+        & button {
+            user-select: none;
+            background-color: transparent
+        }
+    }
+}
+  

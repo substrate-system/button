@@ -1,6 +1,3 @@
-import { createDebug } from '@substrate-system/debug'
-const debug = createDebug()
-
 // for docuement.querySelector
 declare global {
     interface HTMLElementTagNameMap {
@@ -9,76 +6,144 @@ declare global {
 }
 
 export class SubstrateButton extends HTMLElement {
-    // Define the attributes to observe
-    // need this for `attributeChangedCallback`
-    static observedAttributes = ['example']
+    // for `attributeChangedCallback`
+    static observedAttributes = ['autofocus', 'disabled', 'spinning']
     static tag = 'substrate-button'
-
-    example:string|null
+    _isSpinning:boolean
 
     constructor () {
         super()
-        const example = this.getAttribute('example')
-        this.example = example
+        const disabled = this.getAttribute('disabled')
+        this.disabled = disabled !== null
+        this.autofocus = (this.getAttribute('autofocus') !== null)
+        this._isSpinning = (this.getAttribute('spinning') !== null)
+    }
 
-        this.innerHTML = `<div>
-            <p>example</p>
-            <ul>
-                ${Array.from(this.children).filter(Boolean).map(node => {
-                    return `<li>${node.outerHTML}</li>`
-                }).join('')}
-            </ul>
-        </div>`
+    get form ():HTMLFormElement|undefined|null {
+        return this.button?.form
+    }
+
+    get disabled ():boolean {
+        return !!(this.button?.hasAttribute('disabled'))
+    }
+
+    get type ():string|null|undefined {
+        return this.button?.getAttribute('type')
+    }
+
+    get tabindex ():number {
+        const i = this.button?.getAttribute('tabindex')
+        if (!i) return 0
+        return parseInt(i)
+    }
+
+    get spinning ():boolean {
+        return this._isSpinning
+    }
+
+    set spinning (value:boolean) {
+        if (value) this.setAttribute('spinning', '')
+        else this.removeAttribute('spinning')
+    }
+
+    set type (value:string) {
+        this._setAttribute('type', value)
+    }
+
+    set disabled (disabledValue:boolean) {
+        if (!disabledValue) {
+            this._removeAttribute('disabled')
+            this.button?.setAttribute('aria-disabled', 'false')
+        } else {
+            this.button?.setAttribute('disabled', '')
+            this.button?.setAttribute('aria-disabled', 'true')
+        }
+    }
+
+    get autofocus ():boolean {
+        return !!(this.button?.hasAttribute('autofocus'))
+    }
+
+    set autofocus (value:boolean) {
+        if (value) {
+            this._setAttribute('autofocus', value)
+        } else {
+            this._removeAttribute('autofocus')
+        }
+    }
+
+    _setAttribute (name:string, value:boolean|string|null):void {
+        if (value === false) {
+            // false means remove the attribute
+            this._removeAttribute(name)
+            this.button?.removeAttribute(name)
+        } else {
+            if (value === true) {
+                // true means set the attribute with no value
+                return this.button?.setAttribute(name, '')
+            }
+
+            if (value === null) {
+                // null mean remove
+                return this._removeAttribute(name)
+            }
+
+            // else, set value to a string
+            this.button?.setAttribute(name, value)
+        }
     }
 
     /**
-     * Handle 'example' attribute changes
+     * Remove from `this` and also button child.
+     */
+    _removeAttribute (name:string) {
+        this.removeAttribute(name)
+        this.button?.removeAttribute(name)
+    }
+
+    get button ():HTMLButtonElement|null {
+        return this.querySelector('button')
+    }
+
+    /**
+     * Handle 'autofocus' attribute changes
      * @see {@link https://gomakethings.com/how-to-detect-when-attributes-change-on-a-web-component/#organizing-your-code Go Make Things article}
      *
      * @param  {string} oldValue The old attribute value
      * @param  {string} newValue The new attribute value
      */
-    handleChange_example (oldValue:string, newValue:string) {
-        debug('handling example change', oldValue, newValue)
+    handleChange_autofocus (_oldValue:string, newValue:string) {
+        this._setAttribute('autofocus', newValue)
+    }
 
-        if (newValue === null) {
-            // [example] was removed
+    handleChange_disabled (_old, newValue:boolean|string) {
+        this._setAttribute('disbaled', newValue)
+    }
+
+    handleChange_spinning (_, newValue:boolean) {
+        if (newValue !== null) {
+            this.classList.add('substrate-loading')
         } else {
-            // set [example] attribute
+            this.classList.remove('substrate-loading')
         }
     }
 
     /**
-     * Runs when the value of an attribute is changed
+     * Runs when the value of an attribute is changed.
+     *
+     * Should add methods to this class like `handleChange_class`, to
+     * listen for changes to `class` attribute.
      *
      * @param  {string} name     The attribute name
      * @param  {string} oldValue The old attribute value
      * @param  {string} newValue The new attribute value
      */
     attributeChangedCallback (name:string, oldValue:string, newValue:string) {
-        debug('an attribute changed', name)
         const handler = this[`handleChange_${name}`];
-        (handler && handler(oldValue, newValue))
-        this.render()
-    }
-
-    disconnectedCallback () {
-        debug('disconnected')
+        (handler && handler.call(this, oldValue, newValue))
     }
 
     connectedCallback () {
-        debug('connected')
-
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length) {
-                    debug('Node added: ', mutation.addedNodes)
-                }
-            })
-        })
-
-        observer.observe(this, { childList: true })
-
         this.render()
     }
 
@@ -92,13 +157,26 @@ export class SubstrateButton extends HTMLElement {
     }
 
     render () {
-        this.innerHTML = `<div>
-            <p>example</p>
-            <ul>
-                ${Array.from(this.children).filter(Boolean).map(node => {
-                    return `<li>${node.outerHTML}</li>`
-                }).join('')}
-            </ul>
-        </div>`
+        const {
+            type,
+            autofocus,
+            tabindex,
+            disabled,
+        } = this
+
+        const classes:string[] = ['substrate-button']
+
+        const btnProps = ([
+            `class="${classes.join(' ')}"`,
+            disabled ? 'disabled' : '',
+            autofocus ? 'autofocus' : '',
+            type ? `type="${this.type}"` : '',
+            tabindex ? `tabindex=${tabindex}` : '0',
+            'role="button"'
+        ]).filter(Boolean).join(' ')
+
+        this.innerHTML = `<button ${btnProps}>
+            ${this.innerHTML}
+        </button>`
     }
 }

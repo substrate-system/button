@@ -1,14 +1,14 @@
-import { test } from '@bicycle-codes/tapzero'
+import { test } from '@substrate-system/tapzero'
 import { waitFor } from '@bicycle-codes/dom'
-import '../src/index.js'
+import { SubstrateButton } from '../src/index.js'
 
-test('example test', async t => {
+test('create a button', async t => {
     document.body.innerHTML += `
-        <substrate-button class="test">
-        </substrate-button>
+        <${SubstrateButton.tag} class="test">
+        </${SubstrateButton.tag}>
     `
 
     const el = await waitFor('substrate-button')
 
-    t.ok(el, 'should find an element')
+    t.ok(el, 'Can use the static method to create the element')
 })
