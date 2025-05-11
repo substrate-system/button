@@ -6,13 +6,11 @@
 [![install size](https://packagephobia.com/badge?p=@substrate-system/button)](https://packagephobia.com/result?p=@substrate-system/button)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
+![GZip size](https://img.badgesize.com/substrate-system/button/main/README.md?compression=gzip)
 [![license](https://img.shields.io/badge/license-Polyform_Small_Business-249fbc?style=flat-square)](LICENSE)
 
 
 A button web component, with a visual "loading" state.
-
-* `aria-disabled="false"`
-
 
 [See a live demo](https://substrate-system.github.io/button/)
 
