@@ -4,14 +4,15 @@ const debug = createDebug()
 // for docuement.querySelector
 declare global {
     interface HTMLElementTagNameMap {
-        'substrate-button': Example
+        'substrate-button': SubstrateButton
     }
 }
 
-export class Example extends HTMLElement {
+export class SubstrateButton extends HTMLElement {
     // Define the attributes to observe
     // need this for `attributeChangedCallback`
     static observedAttributes = ['example']
+    static tag = 'substrate-button'
 
     example:string|null
 
@@ -81,6 +82,15 @@ export class Example extends HTMLElement {
         this.render()
     }
 
+    static define () {
+        if (!('customElements' in window)) return
+
+        return customElements.define(
+            SubstrateButton.tag || 'substrate-button',
+            SubstrateButton
+        )
+    }
+
     render () {
         this.innerHTML = `<div>
             <p>example</p>
@@ -91,8 +101,4 @@ export class Example extends HTMLElement {
             </ul>
         </div>`
     }
-}
-
-if ('customElements' in window) {
-    customElements.define('substrate-button', Example)
 }

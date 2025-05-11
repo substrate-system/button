@@ -1,19 +1,33 @@
-# package name here
-![tests](https://github.com/substrate/button/actions/workflows/nodejs.yml/badge.svg)
+# button
+![tests](https://github.com/substrate-system/button/actions/workflows/nodejs.yml/badge.svg)
 [![types](https://img.shields.io/npm/types/@substrate-system/button?style=flat-square)](README.md)
 [![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
-[![install size](https://packagephobia.com/badge?p=@substrate-system/button)](https://packagephobia.com/result?p=@substrate-system/button)
 [![dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg?style=flat-square)](package.json)
+[![install size](https://packagephobia.com/badge?p=@substrate-system/button)](https://packagephobia.com/result?p=@substrate-system/button)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
-[![install size](https://flat.badgen.net/packagephobia/install/@substrate-system/button)](https://packagephobia.com/result?p=@substrate-system/button)
-[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![license](https://img.shields.io/badge/license-Polyform_Small_Business-249fbc?style=flat-square)](LICENSE)
 
-`<package description goes here>`
 
-[See a live demo](https://substrate.github.io/button/)
+A button web component, with a visual "loading" state.
+
+[See a live demo](https://substrate-system.github.io/button/)
 
 <!-- toc -->
+
+- [install](#install)
+- [API](#api)
+  * [ESM](#esm)
+  * [Common JS](#common-js)
+- [CSS](#css)
+  * [Import CSS](#import-css)
+  * [Customize CSS via some variables](#customize-css-via-some-variables)
+- [use](#use)
+  * [JS](#js)
+  * [HTML](#html)
+  * [pre-built](#pre-built)
+
+<!-- tocstop -->
 
 ## install
 
@@ -29,12 +43,12 @@ This exposes ESM and common JS via [package.json `exports` field](https://nodejs
 
 ### ESM
 ```js
-import '@substrate-system/button'
+import { SubstrateButton } from '@substrate-system/button'
 ```
 
 ### Common JS
 ```js
-require('@substrate-system/button')
+const { SubstrateButton } = require('@substrate-system/button')
 ```
 
 ## CSS
@@ -58,13 +72,32 @@ substrate-button {
 }
 ```
 
-## use
-This calls the global function `customElements.define`. Just import, then use
-the tag in your HTML.
+## Use
+You will need to set a name for this custom element. To use the default, call
+`.define()`:
+
+```js
+import { SubstrateButton } from '@substrate-system/button'
+
+// create a web component named `substrate-button`
+SubstrateButton.define()
+```
+
+Or override the `tag` property to change the tag name:
+```js
+import { SubstrateButton } from '@substrate-system/button'
+
+// set a custom name
+SubstrateButton.tag = 'cool-button'
+
+SubstrateButton.define()
+```
+
 
 ### JS
 ```js
-import '@substrate-system/button'
+import { SubstrateButton } from '@substrate-system/button'
+SubstrateButton.define()
 ```
 
 ### HTML
