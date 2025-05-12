@@ -69,7 +69,6 @@ substrate-button {
         position: relative;
         background-color: var(--substrate-button-background, transparent);
         transition: background-color 0.3s ease, color 0.3s ease;
-        box-shadow: 0 1px 2px var(--substrate-button-shadow);
         appearance: none;
 
         &:focus {
@@ -77,23 +76,13 @@ substrate-button {
             outline: none;
         }
 
+        &[disabled] {
+            box-shadow: none;
+        }
+
         &[disabled], &:active {
             color: var(--substrate-medium, #999da0);
             background-color: var(--substrate-button-background-disabled, #f7f7f5);
-        }
-
-        &[type="icon"] {
-            & button {
-                background: none;
-                box-shadow: none;
-            }
-
-            & substrate-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
         }
 
         &:not([disabled]) {
