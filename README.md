@@ -75,7 +75,9 @@ const { SubstrateButton } = require('@substrate-system/button')
 
 ## CSS
 
-### Import CSS
+### Bundler
+
+Import CSS with a bundler, like [esbuild](https://esbuild.github.io/content-types/#css).
 
 ```js
 import '@substrate-system/button/css'
@@ -86,15 +88,12 @@ Or minified:
 import '@substrate-system/button/css/min'
 ```
 
-### Customize CSS via some variables
+### CSS import
+
+Or use CSS imports:
 
 ```css
-substrate-button {
-  --substrate-button-text: #36393d;
-  --substrate-button-background-focus: #f7f7f5;
-  --substrate-button-background-disabled: #f7f7f5;
-  --substrate-button-background-hover: #e6e6e6;
-}
+@import url("../node_modules/@substrate-system/button/dist/index.min.css");
 ```
 
 ## Use
