@@ -24,9 +24,11 @@ A button web component, with a visual "loading" state.
   * [ESM](#esm)
   * [Common JS](#common-js)
 - [CSS](#css)
-  * [Import CSS](#import-css)
-  * [Customize CSS via some variables](#customize-css-via-some-variables)
+  * [Bundler](#bundler)
+  * [CSS import](#css-import)
 - [Use](#use)
+  * [Example](#example)
+  * [Attributes](#attributes)
   * [HTML](#html)
   * [pre-built](#pre-built)
 
