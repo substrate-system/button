@@ -4,7 +4,11 @@ import { SubstrateButton } from '../src/index.js'
 SubstrateButton.define()
 
 document.body.innerHTML += `
+    <p>Resolve for 3 seconds:</p>
     <substrate-button>hello</substrate-button>
+
+    <p>Disabled:</p>
+    <substrate-button id="disabled" disabled>disabled</substrate-button>
 `
 
 const el = document.querySelector('substrate-button')

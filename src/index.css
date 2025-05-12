@@ -82,12 +82,6 @@ substrate-button {
             background-color: var(--substrate-button-background-disabled, #f7f7f5);
         }
 
-        &:active {
-            animation-duration: .2s;
-            animation-name: substrate-button-activate;
-            transition-timing-function: ease;
-        }
-
         &[type="icon"] {
             & button {
                 background: none;
@@ -102,9 +96,17 @@ substrate-button {
             }
         }
 
-        &:not([disabled]):hover {
-            background-color: var(--substrate-button-background-hover, #e6e6e6)!important;
-            cursor: pointer;
+        &:not([disabled]) {
+            &:active {
+                animation-duration: .2s;
+                animation-name: substrate-button-activate;
+                transition-timing-function: ease;
+            }
+
+            &:hover {
+                background-color: var(--substrate-button-background-hover, #e6e6e6)!important;
+                cursor: pointer;
+            }
         }
     }
 

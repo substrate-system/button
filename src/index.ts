@@ -14,7 +14,12 @@ export class SubstrateButton extends HTMLElement {
     constructor () {
         super()
         const disabled = this.getAttribute('disabled')
-        this.disabled = disabled !== null
+        if (disabled !== null) {
+            setTimeout(() => {
+                // need to wait for it to render
+                this.disabled = true
+            }, 0)
+        }
         this.autofocus = (this.getAttribute('autofocus') !== null)
         this._isSpinning = (this.getAttribute('spinning') !== null)
     }
@@ -25,6 +30,16 @@ export class SubstrateButton extends HTMLElement {
 
     get disabled ():boolean {
         return !!(this.button?.hasAttribute('disabled'))
+    }
+
+    set disabled (disabledValue:boolean) {
+        if (!disabledValue) {
+            this._removeAttribute('disabled')
+            this.button?.setAttribute('aria-disabled', 'false')
+        } else {
+            this.button?.setAttribute('disabled', '')
+            this.button?.setAttribute('aria-disabled', 'true')
+        }
     }
 
     get type ():string|null|undefined {
@@ -48,16 +63,6 @@ export class SubstrateButton extends HTMLElement {
 
     set type (value:string) {
         this._setAttribute('type', value)
-    }
-
-    set disabled (disabledValue:boolean) {
-        if (!disabledValue) {
-            this._removeAttribute('disabled')
-            this.button?.setAttribute('aria-disabled', 'false')
-        } else {
-            this.button?.setAttribute('disabled', '')
-            this.button?.setAttribute('aria-disabled', 'true')
-        }
     }
 
     get autofocus ():boolean {
@@ -84,7 +89,7 @@ export class SubstrateButton extends HTMLElement {
             }
 
             if (value === null) {
-                // null mean remove
+                // null means remove
                 return this._removeAttribute(name)
             }
 
@@ -117,7 +122,9 @@ export class SubstrateButton extends HTMLElement {
     }
 
     handleChange_disabled (_old, newValue:boolean|string) {
-        this._setAttribute('disbaled', newValue)
+        this.disabled = (newValue !== null)
+        if (newValue === null) this.button?.removeAttribute('disabled')
+        else this.button?.setAttribute('disabled', '' + newValue)
     }
 
     handleChange_spinning (_, newValue:boolean) {
@@ -171,12 +178,10 @@ export class SubstrateButton extends HTMLElement {
             disabled ? 'disabled' : '',
             autofocus ? 'autofocus' : '',
             type ? `type="${this.type}"` : '',
-            tabindex ? `tabindex=${tabindex}` : '0',
+            tabindex ? `tabindex="${tabindex}"` : 'tabindex="0"',
             'role="button"'
         ]).filter(Boolean).join(' ')
 
-        this.innerHTML = `<button ${btnProps}>
-            ${this.innerHTML}
-        </button>`
+        this.innerHTML = `<button ${btnProps}>${this.innerHTML}</button>`
     }
 }
