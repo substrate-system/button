@@ -85,13 +85,18 @@ import '@substrate-system/button/css/min'
 
 ```css
 substrate-button {
-    --example: pink;
+  --substrate-button-text: #36393d;
+  --substrate-button-background-focus: #f7f7f5;
+  --substrate-button-background-disabled: #f7f7f5;
+  --substrate-button-background-hover: #e6e6e6;
 }
 ```
 
 ## Use
 
-You will need to set a name for this custom element.
+You will need to set a name for this custom element with the static method
+`define`. To use the default name, `substrate-button`, just import and
+call `.define()`.
 
 > [!CAUTION]  
 > If you change the name of the web component, it will break the CSS.

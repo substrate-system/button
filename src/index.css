@@ -41,7 +41,6 @@ substrate-button {
 
             &:hover {
                 color: transparent;
-                background: var(--substrate-medium, #999da0)!important;
             }
 
             &::after {
