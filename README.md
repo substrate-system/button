@@ -126,6 +126,10 @@ SubstrateButton.tag = 'cool-button'
 SubstrateButton.define()
 ```
 
+### Example
+
+See the example in [./example](./example/).
+
 ### Attributes
 
 #### spinning
