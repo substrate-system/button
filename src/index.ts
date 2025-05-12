@@ -77,6 +77,9 @@ export class SubstrateButton extends HTMLElement {
         }
     }
 
+    /**
+     * Set attributes on the internal button element.
+     */
     _setAttribute (name:string, value:boolean|string|null):void {
         if (value === false) {
             // false means remove the attribute

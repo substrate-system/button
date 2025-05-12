@@ -21,3 +21,13 @@ if (el) {
         }, 3000)
     })
 }
+
+// @ts-expect-error dev
+window.setAttribute = function () {
+    el?.setAttribute('spinning', '')
+}
+
+// @ts-expect-error dev
+window.rmAttribute = function () {
+    el?.removeAttribute('spinning')
+}

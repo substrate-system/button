@@ -126,6 +126,37 @@ SubstrateButton.tag = 'cool-button'
 SubstrateButton.define()
 ```
 
+### Attributes
+
+#### spinning
+
+Add an attribute `spinning` to set the loading state.
+
+```js
+const el = document.querySelector('substrate-button')
+el?.setAttribute('spinning', '')
+// now it shows a spinning animation
+```
+
+Remove the attribute to stop the animation:
+```js
+const el = document.querySelector('substrate-button')
+el?.removeAttribute('spinning')
+```
+
+#### JS API
+
+Or, if you have a reference to the element, you can set the `spinning` property
+for the same effect:
+
+```js
+const el = document.querySelector('substrate-button')
+
+el.spinning = true  // spin
+
+el.spinning = false  // stop
+```
+
 ### HTML
 ```html
 <div>
