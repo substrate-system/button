@@ -14,6 +14,8 @@ A button web component, with a visual "loading" state.
 
 [See a live demo](https://substrate-system.github.io/button/)
 
+![Demo of the button](image.png)
+
 <details><summary><h2>Contents</h2></summary>
 
 <!-- toc -->
