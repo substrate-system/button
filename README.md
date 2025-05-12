@@ -14,6 +14,8 @@ A button web component, with a visual "loading" state.
 
 [See a live demo](https://substrate-system.github.io/button/)
 
+<details><summary><h2>Contents</h2></summary>
+
 <!-- toc -->
 
 - [Install](#install)
@@ -29,6 +31,9 @@ A button web component, with a visual "loading" state.
   * [pre-built](#pre-built)
 
 <!-- tocstop -->
+
+</details>
+
 
 ## Install
 
