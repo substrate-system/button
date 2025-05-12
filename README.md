@@ -110,8 +110,7 @@ call `.define()`.
 > If you change the name of the web component, it will break the CSS.
 
 
-To use the default, call
-`.define()`:
+To use the default, call `.define()`:
 
 ```js
 import { SubstrateButton } from '@substrate-system/button'
@@ -168,7 +167,7 @@ el.spinning = false  // stop
 ### HTML
 ```html
 <div>
-    <substrate-button></substrate-button>
+    <substrate-button>hello</substrate-button>
 </div>
 ```
 
