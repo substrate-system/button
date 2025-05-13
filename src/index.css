@@ -76,13 +76,14 @@ substrate-button {
             outline: none;
         } */
 
-        &[disabled] {
-            box-shadow: none;
-        }
-
-        &[disabled], &:active {
+        &:active {
             color: var(--substrate-medium, #999da0);
             background-color: var(--substrate-button-background-disabled, #f7f7f5);
+        }
+
+        &:disabled {
+            pointer-events: none;
+            opacity: 0.4;
         }
 
         &:not([disabled]) {
