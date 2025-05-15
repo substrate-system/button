@@ -178,7 +178,7 @@ accessible to your web server, then link to them in HTML.
 #### copy
 ```sh
 cp ./node_modules/@substrate-system/button/dist/index.min.js ./public/substrate-button.min.js
-cp ./node_modules/@substrate-system/button/dist/style.min.css ./public/substrate-button.css
+cp ./node_modules/@substrate-system/button/dist/index.min.css ./public/substrate-button.css
 ```
 
 #### HTML
