@@ -94,7 +94,7 @@ substrate-button {
             }
 
             &:hover {
-                background-color: var(--substrate-button-background-hover, #e6e6e6)!important;
+                background-color: var(--substrate-button-background-hover, #e6e6e6);
                 cursor: pointer;
             }
         }

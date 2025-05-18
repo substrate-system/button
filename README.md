@@ -102,7 +102,7 @@ Or use CSS imports:
 
 ## Use
 
-You will need to set a name for this custom element with the static method
+You can set a name for this custom element with the static method
 `define`. To use the default name, `substrate-button`, just import and
 call `.define()`.
 
