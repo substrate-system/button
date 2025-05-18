@@ -92,10 +92,6 @@ substrate-button {
                 animation-name: substrate-button-activate;
                 transition-timing-function: ease;
             }
-
-            &:hover {
-                background-color: var(--substrate-button-background-hover, #e6e6e6);
-            }
         }
     }
 
