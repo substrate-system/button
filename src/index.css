@@ -68,13 +68,7 @@ substrate-button {
         padding: 0.5em 1em;
         position: relative;
         background-color: var(--substrate-button-background, transparent);
-        transition: background-color 0.3s ease, color 0.3s ease;
         appearance: none;
-
-        /* &:focus {
-            background-color: var(--substrate-button-background-focus, #f7f7f5);
-            outline: none;
-        } */
 
         &:active {
             color: var(--substrate-medium, #999da0);
