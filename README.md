@@ -109,11 +109,11 @@ call `.define()`.
 > [!CAUTION]  
 > If you change the name of the web component, it will break the CSS.
 
-
 To use the default, call `.define()`:
 
 ```js
 import { SubstrateButton } from '@substrate-system/button'
+import '@substrate-system/button/css'
 
 // create a web component named `substrate-button`
 SubstrateButton.define()
@@ -128,6 +128,67 @@ SubstrateButton.tag = 'cool-button'
 
 SubstrateButton.define()
 ```
+
+## Module format
+
+This package includes ESM, Common JS, and pre-bundled versions.
+
+### Bundler
+Just import like normal.
+
+#### Full
+
+This is a web component that knows how to render itself.
+
+```js
+import { SubstrateButton } from '@substrate-system/button'
+```
+
+#### Client
+
+This web component should be used in conjunction with server-side rendering.
+It does not know how to render itself.
+
+```js
+import { SubstrateButton } from '@substrate-system/button/client'
+```
+
+#### Server-side
+
+Take some attributes, and return a string of HTML.
+
+```js
+import { html } from '@substrate-system/button/html'
+
+const htmlString = html({
+  classes: ['abc'],
+  disabled: false,
+  autofocus: 'on'
+})
+```
+
+### pre-built
+
+This package exposes minified JS and CSS files. Copy them to a location that is
+accessible to your web server, then link to them in HTML.
+
+#### copy
+```sh
+cp ./node_modules/@substrate-system/button/dist/index.min.js ./public/substrate-button.min.js
+cp ./node_modules/@substrate-system/button/dist/index.min.css ./public/substrate-button.css
+```
+
+#### HTML
+```html
+<head>
+    <link rel="stylesheet" href="./substrate-button.css">
+</head>
+<body>
+    <!-- ... -->
+    <script type="module" src="./substrate-button.min.js"></script>
+</body>
+```
+
 
 ### Example
 
@@ -162,32 +223,4 @@ const el = document.querySelector('substrate-button')
 el.spinning = true  // spin
 
 el.spinning = false  // stop
-```
-
-### HTML
-```html
-<div>
-    <substrate-button>hello</substrate-button>
-</div>
-```
-
-### pre-built
-This package exposes minified JS and CSS files too. Copy them to a location that is
-accessible to your web server, then link to them in HTML.
-
-#### copy
-```sh
-cp ./node_modules/@substrate-system/button/dist/index.min.js ./public/substrate-button.min.js
-cp ./node_modules/@substrate-system/button/dist/index.min.css ./public/substrate-button.css
-```
-
-#### HTML
-```html
-<head>
-    <link rel="stylesheet" href="./substrate-button.css">
-</head>
-<body>
-    <!-- ... -->
-    <script type="module" src="./substrate-button.min.js"></script>
-</body>
 ```

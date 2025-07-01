@@ -6,9 +6,9 @@ SubstrateButton.define()
 
 test('create a button', async t => {
     document.body.innerHTML += `
-        <${SubstrateButton.tag} class="test">
+        <${SubstrateButton.TAG} class="test">
             button
-        </${SubstrateButton.tag}>
+        </${SubstrateButton.TAG}>
     `
 
     const el = await waitFor('substrate-button') as SubstrateButton
