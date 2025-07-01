@@ -143,15 +143,19 @@ This is a web component that knows how to render itself.
 
 ```js
 import { SubstrateButton } from '@substrate-system/button'
+
+SubstrateButton.define()
 ```
 
 #### Client
 
-This web component should be used in conjunction with server-side rendering.
+The client version should be used in conjunction with server-side rendering.
 It does not know how to render itself.
 
 ```js
 import { SubstrateButton } from '@substrate-system/button/client'
+
+SubstrateButton.define()
 ```
 
 #### Server-side
@@ -164,7 +168,7 @@ import { html } from '@substrate-system/button/html'
 const htmlString = html({
   classes: ['abc'],
   disabled: false,
-  autofocus: 'on'
+  autofocus: false
 })
 ```
 
