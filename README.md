@@ -29,10 +29,11 @@ A button web component, with a visual "loading" state.
   * [Bundler](#bundler)
   * [CSS import](#css-import)
 - [Use](#use)
+- [Module format](#module-format)
+  * [Bundler](#bundler-1)
+  * [pre-built](#pre-built)
   * [Example](#example)
   * [Attributes](#attributes)
-  * [HTML](#html)
-  * [pre-built](#pre-built)
 
 <!-- tocstop -->
 
