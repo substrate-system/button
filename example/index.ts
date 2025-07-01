@@ -1,5 +1,6 @@
 import '../src/index.css'
 import { SubstrateButton } from '../src/index.js'
+// import { SubstrateButton as BtnLight } from '../src/client.js'
 
 SubstrateButton.define()
 

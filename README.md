@@ -1,10 +1,10 @@
 # button
-![tests](https://github.com/substrate-system/button/actions/workflows/nodejs.yml/badge.svg)
+[![tests](https://img.shields.io/github/actions/workflow/status/substrate-system/button/nodejs.yml?style=flat-square)](https://github.com/substrate-system/button/actions/workflows/nodejs.yml)
 [![types](https://img.shields.io/npm/types/@substrate-system/button?style=flat-square)](README.md)
 [![module](https://img.shields.io/badge/module-ESM%2FCJS-blue?style=flat-square)](README.md)
 [![dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg?style=flat-square)](package.json)
 [![install size](https://flat.badgen.net/packagephobia/install/@substrate-system/button?cache-control=no-cache)](https://packagephobia.com/result?p=@substrate-system/button)
-[![GZip size](https://img.badgesize.io/https%3A%2F%2Fesm.sh%2F%40substrate-system%2Fbutton%2Fes2022%2Fbutton.mjs?compression=gzip&style=flat-square)](https://esm.sh/@substrate-system/button/es2022/button.mjs)
+[![gzip size](https://img.shields.io/bundlephobia/minzip/@substrate-system/button?style=flat-square)](https://bundlephobia.com/package/@substrate-system/button)
 [![semantic versioning](https://img.shields.io/badge/semver-2.0.0-blue?logo=semver&style=flat-square)](https://semver.org/)
 [![Common Changelog](https://nichoth.github.io/badge/common-changelog.svg)](./CHANGELOG.md)
 [![license](https://img.shields.io/badge/license-Polyform_Small_Business-249fbc?style=flat-square)](LICENSE)
