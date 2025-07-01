@@ -74,7 +74,6 @@ substrate-button {
 button.substrate-button {
     border: 1px solid black;
     color: var(--substrate-button-text, var(--substrate-primary, #36393d));
-    width: 100%;
     font-family: var(--substrate-font, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif);
     padding: 0.5em 1em;
     position: relative;
