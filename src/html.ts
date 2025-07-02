@@ -27,7 +27,12 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
         'role="button"'
     ]).filter(Boolean).join(' ')
 
-    return `<button ${btnProps}>
-        ${textContent}
-    </button>`
+    // rendering in node?
+    return typeof window === 'undefined' ?
+        `<substrate-button${disabled ? ' disabled' : ''}>
+            <button ${btnProps}>${textContent}</button>
+        </substrate-button$>` :
+        `<button ${btnProps}>
+            ${textContent}
+        </button>`
 }
