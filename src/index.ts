@@ -22,6 +22,7 @@ export class SubstrateButton extends SubstrateButtonLight {
             tabindex,
             disabled,
         } = this
+        const name = this.getAttribute('name')
 
         const classes:(string|null)[] = [
             'substrate-button',
@@ -35,6 +36,7 @@ export class SubstrateButton extends SubstrateButtonLight {
             autofocus,
             tabindex,
             type,
+            name,
         }
 
         this.innerHTML = html(btnProps, text)
