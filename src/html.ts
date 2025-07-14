@@ -3,6 +3,7 @@ export type Attrs = {
     autofocus:boolean;
     tabindex:string|number;
     disabled:boolean;
+    name:string|null;
     classes:string[]|Set<string>;
 }
 export function html (attrs:Partial<Attrs>, textContent:string) {
@@ -11,7 +12,8 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
         autofocus,
         tabindex,
         disabled,
-        classes
+        classes,
+        name
     } = attrs
 
     const _classes = new Set(classes)
@@ -23,6 +25,7 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
         disabled ? 'disabled' : '',
         autofocus ? 'autofocus' : '',
         type ? `type="${type}"` : '',
+        name ? `name=${name}` : '',
         tabindex ? `tabindex="${tabindex}"` : 'tabindex="0"',
         'role="button"'
     ]).filter(Boolean).join(' ')
