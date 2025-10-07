@@ -6,6 +6,7 @@ export type Attrs = {
     name:string|null;
     classes:string[]|Set<string>;
 }
+
 export function html (attrs:Partial<Attrs>, textContent:string) {
     const {
         type,

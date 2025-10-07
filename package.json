@@ -22,14 +22,8 @@
     "./css": "./dist/index.css",
     "./css/min": "./dist/index.min.css",
     "./*": {
-      "import": [
-        "./dist/*.js",
-        "./dist/*"
-      ],
-      "require": [
-        "./dist/*.cjs",
-        "./dist/*"
-      ]
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
     }
   },
   "scripts": {
