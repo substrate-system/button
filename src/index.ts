@@ -1,6 +1,9 @@
 import { html } from './html.js'
 import { SubstrateButton as SubstrateButtonLight } from './client.js'
 
+/**
+ * This is the full-version -- knows how to render itself in the browser.
+ */
 export class SubstrateButton extends SubstrateButtonLight {
     static define () {
         if (!('customElements' in window)) return

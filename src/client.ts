@@ -161,13 +161,8 @@ export class SubstrateButton extends HTMLElement {
         this.render()
     }
 
-    static define () {
-        if (!('customElements' in window)) return
-
-        return customElements.define(
-            SubstrateButton.TAG || 'substrate-button',
-            SubstrateButton
-        )
+    static define ():void {
+        return define(SubstrateButton.TAG, SubstrateButton)
     }
 
     render () {
@@ -175,3 +170,15 @@ export class SubstrateButton extends HTMLElement {
     }
 }
 
+export function isRegistered (elName:string):boolean {
+    return document.createElement(elName).constructor !== window.HTMLElement
+}
+
+export function define (name:string, element:CustomElementConstructor):void {
+    if (!window) return
+    if (!('customElements' in window)) return
+
+    if (!isRegistered(name)) {
+        window.customElements.define(name, element)
+    }
+}
