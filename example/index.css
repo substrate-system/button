@@ -1,9 +1,11 @@
 button {
     cursor: pointer;
-    outline: 2px solid transparent;
     transition: 0.2s all;
+    min-width: 8rem;
+    font-size: 1rem;
 
     &:hover {
-        outline-color: black
+        box-shadow: 0 4px 12px #00000026;
+        transform: translateY(-2px);
     }
 }
