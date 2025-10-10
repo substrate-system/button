@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
     <link rel="stylesheet" href="/index.css">
     <title>Button Example</title>
 </head>
+
 <body>
     <section>
         <h2>Basic Button with Loading State</h2>
@@ -18,19 +22,33 @@
 
     <section>
         <h2>Disabled Button</h2>
-        <p>Properly marked with disabled and aria-disabled attributes:</p>
-        <substrate-button id="disabled" disabled>Disabled Button</substrate-button>
+        <p>
+          Properly marked with disabled and aria-disabled attributes:
+        </p>
+        <substrate-button id="disabled" disabled>
+          Disabled Button
+        </substrate-button>
     </section>
 
     <section>
         <h2>Button with Custom Aria Label</h2>
-        <p>Has a descriptive aria-label for screen readers:</p>
-        <substrate-button id="labeled" aria-label="Save your changes to the document">Save</substrate-button>
+        <p>
+          Has a descriptive aria-label for screen readers:
+        </p>
+        <substrate-button
+          id="labeled"
+          aria-label="Save your changes to the document"
+        >
+          Save
+        </substrate-button>
     </section>
 
     <section>
         <h2>Keyboard Navigation</h2>
-        <p>All buttons support keyboard navigation (Tab, Enter, Space). Try tabbing through and pressing Enter or Space:</p>
+        <p>
+          All buttons support keyboard navigation (Tab, Enter, Space).
+          Try tabbing through and pressing Enter or Space:
+        </p>
         <substrate-button id="kb1">First</substrate-button>
         <substrate-button id="kb2">Second</substrate-button>
         <substrate-button id="kb3">Third</substrate-button>
@@ -38,14 +56,22 @@
 
     <section>
         <h2>Focus Visibility</h2>
-        <p>Tab to this button to see the enhanced focus outline:</p>
+        <p>
+          Tab to this button to see the enhanced focus outline:
+        </p>
         <substrate-button id="focus">Focus Me</substrate-button>
     </section>
 
     <section>
         <h2>Reduced Motion Support</h2>
-        <p>If you have "prefers-reduced-motion" enabled in your OS, animations will be disabled.</p>
-        <p>Click to test (animations/transitions will be static if reduced motion is enabled):</p>
+        <p>
+          If you have "prefers-reduced-motion" enabled in your OS,
+          animations will be disabled.
+        </p>
+        <p>
+          Click to test (animations/transitions will be static if
+          reduced motion is enabled):
+        </p>
         <substrate-button id="motion">Test Motion</substrate-button>
     </section>
 
