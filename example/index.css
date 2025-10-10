@@ -3,37 +3,20 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-h1 {
-    color: #36393d;
-    border-bottom: 2px solid #36393d;
-    padding-bottom: 0.5rem;
+h2 {
+    margin-top: 0;
 }
 
 section {
     margin: 2rem 0;
-    padding: 1.5rem;
-    background-color: #f9f9f9;
-}
-
-h2 {
-    margin-top: 0;
-    color: #36393d;
-}
-
-substrate-button {
-    margin: 0.5rem 0.5rem 0.5rem 0;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid;
 }
 
 button {
     cursor: pointer;
-    transition: 0.2s all;
     min-width: 8rem;
     font-size: 1rem;
-
-    &:hover {
-        box-shadow: 0 4px 12px #00000026;
-        transform: translateY(-2px);
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -37,11 +37,11 @@ if (motionBtn) {
 }
 
 // @ts-expect-error dev
-window.setAttribute = function () {
+window.setSpinning = function () {
     el?.setAttribute('spinning', '')
 }
 
 // @ts-expect-error dev
-window.rmAttribute = function () {
+window.rmSpinning = function () {
     el?.removeAttribute('spinning')
 }

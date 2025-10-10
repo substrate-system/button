@@ -32,6 +32,7 @@
         from {
             transform: rotate(0deg);
         }
+
         to {
             transform: rotate(0deg);
         }
@@ -52,13 +53,22 @@ substrate-button {
     display: inline-block;
     user-select: none;
     min-width: 8rem;
+    transition: all 0.3s;
+
+    & button {
+        transition: all 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 4px 12px #00000026;
+            transform: translateY(-2px);
+        }
+    }
 
     &.substrate-loading {
         pointer-events: none;
 
         & button {
             color: transparent;
-            transition: all 0.3s ease;
             pointer-events: none;
 
             &:hover {
@@ -118,20 +128,19 @@ substrate-button {
         }
     }
 }
-  
+
+:root {
+    --default-color: #36393d;
+}
+
 button.substrate-button {
     border: 1px solid black;
-    color: var(--substrate-button-text, var(--substrate-primary, #36393d));
-    font-family: var(--substrate-font, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif);
+    color: var(--default-color);
     padding: 0.5em 1em;
     position: relative;
     background-color: var(--substrate-button-background, transparent);
     appearance: none;
-
-    &:active {
-        color: var(--substrate-medium, #999da0);
-        background-color: var(--substrate-button-background-disabled, #f7f7f5);
-    }
+    outline: 2px solid transparent;
 
     &:disabled {
         pointer-events: none;
@@ -139,18 +148,12 @@ button.substrate-button {
     }
 
     /* Enhanced focus visibility */
-    &:focus {
-        outline: 2px solid var(--substrate-primary, #36393d);
-        outline-offset: 2px;
+    &:focus, &:focus-visible {
+        outline: 2px solid var(--default-color);
     }
 
     &:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    &:focus-visible {
-        outline: 2px solid var(--substrate-primary, #36393d);
-        outline-offset: 2px;
+        outline-color: transparent;
     }
 
     &:not([disabled]) {
