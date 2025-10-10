@@ -26,6 +26,7 @@ export class SubstrateButton extends SubstrateButtonLight {
             disabled,
         } = this
         const name = this.getAttribute('name')
+        const ariaLabel = this.getAttribute('aria-label')
 
         const classes:(string|null)[] = [
             'substrate-button',
@@ -40,6 +41,7 @@ export class SubstrateButton extends SubstrateButtonLight {
             tabindex,
             type,
             name,
+            ariaLabel,
         }
 
         this.innerHTML = html(btnProps, text)

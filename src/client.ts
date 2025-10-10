@@ -136,8 +136,10 @@ export class SubstrateButton extends HTMLElement {
     handleChange_spinning (_, newValue:boolean) {
         if (newValue !== null) {
             this.classList.add('substrate-loading')
+            this.button?.setAttribute('aria-busy', 'true')
         } else {
             this.classList.remove('substrate-loading')
+            this.button?.setAttribute('aria-busy', 'false')
         }
     }
 
@@ -159,6 +161,17 @@ export class SubstrateButton extends HTMLElement {
     connectedCallback () {
         // connect event listeners
         this.render()
+        this._setupKeyboardHandlers()
+    }
+
+    _setupKeyboardHandlers () {
+        // Ensure keyboard accessibility - Space and Enter should trigger click
+        this.button?.addEventListener('keydown', (e:KeyboardEvent) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault()
+                this.button?.click()
+            }
+        })
     }
 
     static define ():void {

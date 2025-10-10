@@ -4,21 +4,34 @@ import { SubstrateButton } from '../src/index.js'
 
 SubstrateButton.define()
 
-document.body.innerHTML += `
-    <p>Resolve for 3 seconds:</p>
-    <substrate-button>hello</substrate-button>
-
-    <p>Disabled:</p>
-    <substrate-button id="disabled" disabled>disabled</substrate-button>
-`
-
-const el = document.querySelector('substrate-button')
+const el = document.querySelector('#basic') as SubstrateButton
+const labeledBtn = document.querySelector('#labeled') as SubstrateButton
+const motionBtn = document.querySelector('#motion') as SubstrateButton
 
 if (el) {
     el.addEventListener('click', () => {
         el.spinning = true
         setTimeout(() => {
             el.spinning = false
+        }, 3000)
+    })
+}
+
+if (labeledBtn) {
+    labeledBtn.addEventListener('click', () => {
+        labeledBtn.spinning = true
+        setTimeout(() => {
+            labeledBtn.spinning = false
+            alert('Changes saved!')
+        }, 2000)
+    })
+}
+
+if (motionBtn) {
+    motionBtn.addEventListener('click', () => {
+        motionBtn.spinning = true
+        setTimeout(() => {
+            motionBtn.spinning = false
         }, 3000)
     })
 }

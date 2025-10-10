@@ -26,6 +26,28 @@
     }
 }
 
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(0deg);
+        }
+    }
+
+    @keyframes spinner {
+        to {transform: rotate(0deg);}
+    }
+
+    @keyframes substrate-button-activate {
+        0%, 50%, 100% {
+            transform: scale(1);
+        }
+    }
+}
+
 substrate-button {
     display: inline-block;
     user-select: none;
@@ -70,6 +92,32 @@ substrate-button {
         }
     }
 }
+
+/* Disable animations and transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    substrate-button {
+        &.substrate-loading {
+            & button {
+                transition: none;
+
+                &::after {
+                    animation: none;
+                    /* Show a static indicator instead of spinning */
+                    border: 2px solid black;
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+
+    button.substrate-button {
+        &:not([disabled]) {
+            &:active {
+                animation: none;
+            }
+        }
+    }
+}
   
 button.substrate-button {
     border: 1px solid black;
@@ -88,6 +136,21 @@ button.substrate-button {
     &:disabled {
         pointer-events: none;
         opacity: 0.4;
+    }
+
+    /* Enhanced focus visibility */
+    &:focus {
+        outline: 2px solid var(--substrate-primary, #36393d);
+        outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--substrate-primary, #36393d);
+        outline-offset: 2px;
     }
 
     &:not([disabled]) {

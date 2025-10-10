@@ -5,6 +5,7 @@ export type Attrs = {
     disabled:boolean;
     name:string|null;
     classes:string[]|Set<string>;
+    ariaLabel:string|null;
 }
 
 export function html (attrs:Partial<Attrs>, textContent:string) {
@@ -14,7 +15,8 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
         tabindex,
         disabled,
         classes,
-        name
+        name,
+        ariaLabel
     } = attrs
 
     const _classes = new Set(classes)
@@ -28,14 +30,16 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
         type ? `type="${type}"` : '',
         name ? `name=${name}` : '',
         tabindex ? `tabindex="${tabindex}"` : 'tabindex="0"',
-        'role="button"'
+        'role="button"',
+        ariaLabel ? `aria-label="${ariaLabel}"` : '',
+        'aria-live="polite"'
     ]).filter(Boolean).join(' ')
 
     // rendering in node?
     return typeof window === 'undefined' ?
         `<substrate-button${disabled ? ' disabled' : ''}>
             <button ${btnProps}>${textContent}</button>
-        </substrate-button$>` :
+        </substrate-button>` :
         `<button ${btnProps}>
             ${textContent}
         </button>`
