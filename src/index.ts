@@ -1,21 +1,20 @@
 import { html } from './html.js'
+import { define } from '@substrate-system/web-component'
 import { SubstrateButton as SubstrateButtonLight } from './client.js'
+// import Debug from '@substrate-system/debug'
+// const debug = Debug('button')
 
 /**
  * This is the full-version -- knows how to render itself in the browser.
  */
 export class SubstrateButton extends SubstrateButtonLight {
     static define () {
-        if (!('customElements' in window)) return
-
-        return customElements.define(
-            SubstrateButton.TAG || 'substrate-button',
-            SubstrateButton
-        )
+        define(SubstrateButton.TAG, SubstrateButton)
     }
 
     connectedCallback ():void {
         this.render()
+        this._setupKeyboardHandlers()
     }
 
     render () {
@@ -28,9 +27,12 @@ export class SubstrateButton extends SubstrateButtonLight {
         const name = this.getAttribute('name')
         const ariaLabel = this.getAttribute('aria-label')
 
+        const spinning = this.getAttribute('spinning') !== null
+
         const classes:(string|null)[] = [
             'substrate-button',
-            this.getAttribute('class')
+            this.getAttribute('class'),
+            spinning ? 'spinning' : null
         ]
         const text = this.innerHTML
 
@@ -47,3 +49,5 @@ export class SubstrateButton extends SubstrateButtonLight {
         this.innerHTML = html(btnProps, text)
     }
 }
+
+define('substrate-button', SubstrateButton)

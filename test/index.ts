@@ -21,3 +21,8 @@ test('create a button', async t => {
     t.equal(el.disabled, true, 'Should be disabled via `setAttribute`')
     t.ok(el.button instanceof HTMLButtonElement, 'should contain a button')
 })
+
+test('all done', () => {
+    // @ts-expect-error tests
+    window.testsFinished = true
+})

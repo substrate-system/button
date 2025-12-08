@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+import browserslist from 'browserslist'
+import { browserslistToTargets } from 'lightningcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,10 +16,8 @@ export default defineConfig({
     css: {
         transformer: 'lightningcss',
         lightningcss: {
-            drafts: {
-                nesting: true
-            }
-        }
+            targets: browserslistToTargets(browserslist('>= 0.25%')),
+        },
     },
     server: {
         port: 8888,
