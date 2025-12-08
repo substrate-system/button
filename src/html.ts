@@ -20,7 +20,7 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
     } = attrs
 
     const _classes = new Set(classes)
-    _classes.add('substrate-button')
+    _classes.add('substrate-button btn')
     const arr = Array.from(_classes)
 
     const btnProps = ([
@@ -38,9 +38,9 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
     // rendering in node?
     return typeof window === 'undefined' ?
         `<substrate-button${disabled ? ' disabled' : ''}>
-            <button ${btnProps}>${textContent}</button>
+            <button ${btnProps}><span class="btn-content">${textContent}</span></button>
         </substrate-button>` :
         `<button ${btnProps}>
-            ${textContent}
+            <span class="btn-content">${textContent}</span>
         </button>`
 }

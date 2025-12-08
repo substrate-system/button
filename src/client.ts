@@ -1,3 +1,5 @@
+import { WebComponent, define } from '@substrate-system/web-component'
+
 // for docuement.querySelector
 declare global {
     interface HTMLElementTagNameMap {
@@ -6,13 +8,20 @@ declare global {
 }
 
 /**
- * This is the lightweight version for browsers + server-side rendering.
+ * This is the lightweight version for browsers.
+ * It "hydrates" only, meaining sets up event listeners.
+ * It does not know how to render itself.
  */
-export class SubstrateButton extends HTMLElement {
+
+export class SubstrateButton extends WebComponent.create('substrate-button') {
     // for `attributeChangedCallback`
     static observedAttributes = ['autofocus', 'disabled', 'spinning']
     static TAG = 'substrate-button'
     _isSpinning:boolean
+
+    static define () {
+        define(SubstrateButton.TAG, SubstrateButton)
+    }
 
     constructor () {
         super()
@@ -60,8 +69,17 @@ export class SubstrateButton extends HTMLElement {
     }
 
     set spinning (value:boolean) {
-        if (value) this.setAttribute('spinning', '')
-        else this.removeAttribute('spinning')
+        if (value) {
+            this.classList.add('spinning')
+            this.button?.classList.add('spinning')
+            this.button?.setAttribute('disabled', '')
+            this.setAttribute('spinning', '')
+        } else {
+            this.classList.remove('spinning')
+            this.button?.classList.remove('spinning')
+            this.button?.removeAttribute('disabled')
+            this.removeAttribute('spinning')
+        }
     }
 
     set type (value:string) {
@@ -135,27 +153,16 @@ export class SubstrateButton extends HTMLElement {
 
     handleChange_spinning (_, newValue:boolean) {
         if (newValue !== null) {
-            this.classList.add('substrate-loading')
+            this.classList.add('spinning')
+            this.button?.classList.add('spinning')
+            this.button?.setAttribute('disabled', '')
             this.button?.setAttribute('aria-busy', 'true')
         } else {
-            this.classList.remove('substrate-loading')
+            this.classList.remove('spinning')
+            this.button?.classList.remove('spinning')
+            this.button?.removeAttribute('disabled')
             this.button?.setAttribute('aria-busy', 'false')
         }
-    }
-
-    /**
-     * Runs when the value of an attribute is changed.
-     *
-     * Should add methods to this class like `handleChange_class`, to
-     * listen for changes to `class` attribute.
-     *
-     * @param  {string} name     The attribute name
-     * @param  {string} oldValue The old attribute value
-     * @param  {string} newValue The new attribute value
-     */
-    attributeChangedCallback (name:string, oldValue:string, newValue:string) {
-        const handler = this[`handleChange_${name}`];
-        (handler && handler.call(this, oldValue, newValue))
     }
 
     connectedCallback () {
@@ -165,7 +172,7 @@ export class SubstrateButton extends HTMLElement {
     }
 
     _setupKeyboardHandlers () {
-        // Ensure keyboard accessibility - Space and Enter should trigger click
+        // Space and Enter should trigger click
         this.button?.addEventListener('keydown', (e:KeyboardEvent) => {
             if (e.key === ' ' || e.key === 'Enter') {
                 e.preventDefault()
@@ -174,24 +181,7 @@ export class SubstrateButton extends HTMLElement {
         })
     }
 
-    static define ():void {
-        return define(SubstrateButton.TAG, SubstrateButton)
-    }
-
     render () {
         // noop
-    }
-}
-
-export function isRegistered (elName:string):boolean {
-    return document.createElement(elName).constructor !== window.HTMLElement
-}
-
-export function define (name:string, element:CustomElementConstructor):void {
-    if (!window) return
-    if (!('customElements' in window)) return
-
-    if (!isRegistered(name)) {
-        window.customElements.define(name, element)
     }
 }
