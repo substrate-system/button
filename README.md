@@ -194,10 +194,17 @@ cp ./node_modules/@substrate-system/button/dist/index.min.css ./public/substrate
 </body>
 ```
 
+-------------------
 
-### Example
+## Example
 
 See the example in [./example](./example/).
+
+```html
+<substrate-button id="labeled" aria-label="Save your changes">
+  Save
+</substrate-button>
+```
 
 ### Attributes
 
