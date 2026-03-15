@@ -32,7 +32,7 @@ A button web component, with a visual "loading" state.
 - [Module format](#module-format)
   * [Bundler](#bundler-1)
   * [pre-built](#pre-built)
-  * [Example](#example)
+- [Example](#example)
   * [Attributes](#attributes)
 
 <!-- tocstop -->
