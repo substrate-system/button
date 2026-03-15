@@ -45,8 +45,12 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
     }
 
     set disabled (disabledValue:boolean) {
+        // Reflect to host attribute; guard against re-entrancy
+        if (this.hasAttribute('disabled') !== disabledValue) {
+            this.toggleAttribute('disabled', disabledValue)
+        }
         if (!disabledValue) {
-            this._removeAttribute('disabled')
+            this.button?.removeAttribute('disabled')
             this.button?.setAttribute('aria-disabled', 'false')
         } else {
             this.button?.setAttribute('disabled', '')
@@ -91,11 +95,11 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
     }
 
     set autofocus (value:boolean) {
-        if (value) {
-            this._setAttribute('autofocus', value)
-        } else {
-            this._removeAttribute('autofocus')
+        // Reflect to host attribute; guard against re-entrancy
+        if (this.hasAttribute('autofocus') !== value) {
+            this.toggleAttribute('autofocus', value)
         }
+        this.button?.toggleAttribute('autofocus', value)
     }
 
     /**
@@ -141,14 +145,19 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
      * @param  {string} oldValue The old attribute value
      * @param  {string} newValue The new attribute value
      */
-    handleChange_autofocus (_oldValue:string, newValue:string) {
-        this._setAttribute('autofocus', newValue)
+    handleChange_autofocus (_oldValue:string, newValue:string|null) {
+        this.button?.toggleAttribute('autofocus', newValue !== null)
     }
 
-    handleChange_disabled (_old, newValue:boolean|string) {
-        this.disabled = (newValue !== null)
-        if (newValue === null) this.button?.removeAttribute('disabled')
-        else this.button?.setAttribute('disabled', '' + newValue)
+    handleChange_disabled (_old:string|null, newValue:string|null) {
+        const isDisabled = newValue !== null
+        if (isDisabled) {
+            this.button?.setAttribute('disabled', '')
+            this.button?.setAttribute('aria-disabled', 'true')
+        } else {
+            this.button?.removeAttribute('disabled')
+            this.button?.setAttribute('aria-disabled', 'false')
+        }
     }
 
     handleChange_spinning (_, newValue:boolean) {
