@@ -1,9 +1,8 @@
 import { test } from '@substrate-system/tapzero'
 import { waitFor } from '@substrate-system/dom'
 import { SubstrateButton } from '../src/index.js'
-import { h, render } from 'preact'
-import htm from 'htm'
-const html = htm.bind(h)
+import { html } from 'htm/preact'
+import { render } from 'preact'
 
 SubstrateButton.define()
 
@@ -109,6 +108,14 @@ test('preact: render button with disabled attribute', t => {
     t.ok(
         el.button?.hasAttribute('disabled'),
         'inner button has disabled attribute'
+    )
+
+    const container2 = document.createElement('div')
+    document.body.appendChild(container2)
+    render(html`<${SubstrateButton.TAG} disabled=${true}>click<//>`, container2)
+    t.ok(
+        container2.querySelector('substrate-button button')?.hasAttribute('disabled'),
+        'can pass a boolean attribute to disable the button'
     )
 })
 
