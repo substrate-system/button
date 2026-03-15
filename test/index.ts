@@ -1,6 +1,9 @@
 import { test } from '@substrate-system/tapzero'
 import { waitFor } from '@substrate-system/dom'
 import { SubstrateButton } from '../src/index.js'
+import { h, render } from 'preact'
+import htm from 'htm'
+const html = htm.bind(h)
 
 SubstrateButton.define()
 
@@ -82,6 +85,55 @@ test('setAttribute disabled still works (no loop)', async t => {
         'removeAttribute disabled clears .disabled property')
     t.ok(!el.button?.hasAttribute('disabled'),
         'inner button loses disabled attribute')
+})
+
+test('preact: render button with disabled attribute', t => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+
+    render(
+        html`<substrate-button disabled>click me</substrate-button>`,
+        container
+    )
+
+    const el = container.querySelector(
+        'substrate-button'
+    ) as SubstrateButton
+
+    // render() and connectedCallback are synchronous; no async wait needed
+    t.equal(
+        el.disabled,
+        true,
+        'el.disabled is true when rendered via preact with disabled attr'
+    )
+    t.ok(
+        el.button?.hasAttribute('disabled'),
+        'inner button has disabled attribute'
+    )
+})
+
+test('preact: render button without disabled attribute', t => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+
+    render(
+        html`<substrate-button>click me</substrate-button>`,
+        container
+    )
+
+    const el = container.querySelector(
+        'substrate-button'
+    ) as SubstrateButton
+
+    t.equal(
+        el.disabled,
+        false,
+        'el.disabled is false when rendered via preact without disabled attr'
+    )
+    t.ok(
+        !el.button?.hasAttribute('disabled'),
+        'inner button has no disabled attribute'
+    )
 })
 
 test('all done', () => {

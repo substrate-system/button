@@ -18,12 +18,12 @@ export class SubstrateButton extends SubstrateButtonLight {
     }
 
     render () {
-        const {
-            type,
-            autofocus,
-            tabindex,
-            disabled,
-        } = this
+        const { type, tabindex } = this
+        // Read directly from host attributes: the inner button does not
+        // exist yet when render() first runs, so the getters (which
+        // read from the inner button) would return false.
+        const disabled = this.hasAttribute('disabled')
+        const autofocus = this.hasAttribute('autofocus')
         const name = this.getAttribute('name')
         const ariaLabel = this.getAttribute('aria-label')
 
