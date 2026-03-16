@@ -95,28 +95,22 @@ test('preact: render button with disabled attribute', t => {
         container
     )
 
-    const el = container.querySelector(
-        'substrate-button'
-    ) as SubstrateButton
+    const el = container.querySelector('substrate-button') as SubstrateButton
 
     // render() and connectedCallback are synchronous; no async wait needed
-    t.equal(
-        el.disabled,
-        true,
+    t.equal(el.disabled, true,
         'el.disabled is true when rendered via preact with disabled attr'
     )
-    t.ok(
-        el.button?.hasAttribute('disabled'),
-        'inner button has disabled attribute'
-    )
+    t.ok(el.button?.hasAttribute('disabled'),
+        'inner button has disabled attribute')
 
     const container2 = document.createElement('div')
     document.body.appendChild(container2)
     render(html`<${SubstrateButton.TAG} disabled=${true}>click<//>`, container2)
-    t.ok(
-        container2.querySelector('substrate-button button')?.hasAttribute('disabled'),
-        'can pass a boolean attribute to disable the button'
-    )
+    const attr = container2
+        .querySelector('substrate-button button')?.hasAttribute('disabled')
+
+    t.ok(attr, 'can pass a boolean attribute to disable the button')
 })
 
 test('preact: render button without disabled attribute', t => {
