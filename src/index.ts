@@ -18,6 +18,7 @@ export class SubstrateButton extends SubstrateButtonLight {
     }
 
     render () {
+        if (this.querySelector('button')) return
         const { type, tabindex } = this
         // Read directly from host attributes: the inner button does not
         // exist yet when render() first runs, so the getters (which
