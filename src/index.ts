@@ -19,10 +19,12 @@ export class SubstrateButton extends SubstrateButtonLight {
 
     render () {
         if (this.querySelector('button')) return
-        const { type, tabindex } = this
         // Read directly from host attributes: the inner button does not
         // exist yet when render() first runs, so the getters (which
         // read from the inner button) would return false.
+        const type = this.getAttribute('type')
+        const tabindexAttr = this.getAttribute('tabindex')
+        const tabindex = tabindexAttr ? parseInt(tabindexAttr) : 0
         const disabled = this.hasAttribute('disabled')
         const autofocus = this.hasAttribute('autofocus')
         const name = this.getAttribute('name')

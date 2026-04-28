@@ -20,7 +20,8 @@ export function html (attrs:Partial<Attrs>, textContent:string) {
     } = attrs
 
     const _classes = new Set(classes)
-    _classes.add('substrate-button btn')
+    _classes.add('substrate-button')
+    _classes.add('btn')
     const arr = Array.from(_classes)
 
     const btnProps = ([

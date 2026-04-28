@@ -137,6 +137,59 @@ test('preact: render button without disabled attribute', t => {
     )
 })
 
+test('inner button class attribute has no duplicate tokens', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="dup-class-test">
+            click me
+        </substrate-button>
+    `
+    const el = await waitFor('#dup-class-test') as SubstrateButton
+    const btn = el.button!
+    // classList silently dedupes, so check the raw attribute string
+    const raw = btn.getAttribute('class') ?? ''
+    const tokens = raw.split(/\s+/).filter(Boolean)
+    const seen = new Set<string>()
+    const duplicates:string[] = []
+    for (const c of tokens) {
+        if (seen.has(c)) duplicates.push(c)
+        seen.add(c)
+    }
+    t.deepEqual(duplicates, [],
+        'class attribute contains no duplicate tokens')
+    t.ok(tokens.includes('substrate-button'),
+        'inner button has substrate-button class')
+    t.ok(tokens.includes('btn'),
+        'inner button has btn class')
+})
+
+test('declarative type attribute reaches inner button', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="type-decl-test" type="submit">
+            submit
+        </substrate-button>
+    `
+    const el = await waitFor('#type-decl-test') as SubstrateButton
+    t.equal(el.button?.getAttribute('type'), 'submit',
+        'inner button has type="submit" from host attribute')
+    t.equal(el.type, 'submit', '.type getter reflects the value')
+})
+
+test('type setter reflects to host and inner button', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="type-setter-test">
+            click
+        </substrate-button>
+    `
+    const el = await waitFor('#type-setter-test') as SubstrateButton
+
+    el.type = 'submit'
+    t.equal(el.getAttribute('type'), 'submit',
+        'setting .type reflects to host attribute')
+    t.equal(el.button?.getAttribute('type'), 'submit',
+        'setting .type reflects to inner button')
+    t.equal(el.type, 'submit', '.type getter returns the new value')
+})
+
 test('all done', () => {
     // @ts-expect-error tests
     window.testsFinished = true

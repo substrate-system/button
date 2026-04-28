@@ -3,7 +3,7 @@ import { WebComponent, define } from '@substrate-system/web-component'
 // for docuement.querySelector
 declare global {
     interface HTMLElementTagNameMap {
-        'substrate-button': SubstrateButton
+        'substrate-button':SubstrateButton
     }
 }
 
@@ -58,8 +58,8 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
         }
     }
 
-    get type ():string|null|undefined {
-        return this.button?.getAttribute('type')
+    get type ():string|null {
+        return this.button?.getAttribute('type') ?? this.getAttribute('type')
     }
 
     get tabindex ():number {
@@ -86,8 +86,14 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
         }
     }
 
-    set type (value:string) {
-        this._setAttribute('type', value)
+    set type (value:string|null) {
+        if (value === null) {
+            this.removeAttribute('type')
+            this.button?.removeAttribute('type')
+        } else {
+            this.setAttribute('type', value)
+            this.button?.setAttribute('type', value)
+        }
     }
 
     get autofocus ():boolean {
