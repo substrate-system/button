@@ -8,6 +8,26 @@ declare global {
 }
 
 /**
+ * Standard HTMLButtonElement attributes (plus `title`) that should be
+ * mirrored from the host element to the inner <button>. Each is added to
+ * `observedAttributes` so dynamic changes propagate.
+ */
+export const FORWARDED_ATTRS = [
+    'type',
+    'name',
+    'value',
+    'form',
+    'formaction',
+    'formenctype',
+    'formmethod',
+    'formnovalidate',
+    'formtarget',
+    'popovertarget',
+    'popovertargetaction',
+    'title',
+] as const
+
+/**
  * This is the lightweight version for browsers.
  * It "hydrates" only, meaining sets up event listeners.
  * It does not know how to render itself.
@@ -15,7 +35,13 @@ declare global {
 
 export class SubstrateButton extends WebComponent.create('substrate-button') {
     // for `attributeChangedCallback`
-    static observedAttributes = ['autofocus', 'disabled', 'spinning']
+    static observedAttributes = [
+        'autofocus',
+        'disabled',
+        'spinning',
+        ...FORWARDED_ATTRS,
+    ]
+
     static TAG = 'substrate-button'
     _isSpinning:boolean
 
@@ -142,6 +168,37 @@ export class SubstrateButton extends WebComponent.create('substrate-button') {
 
     get button ():HTMLButtonElement|null {
         return this.querySelector('button')
+    }
+
+    /**
+     * Forward host attribute changes to the inner button, except for
+     * attributes that have a specific `handleChange_*` handler. Without
+     * this, e.g. `el.setAttribute('type', 'button')` would not propagate
+     * to the inner <button>.
+     */
+    async attributeChangedCallback (
+        name:string,
+        oldValue:string|null,
+        newValue:string|null
+    ):Promise<void> {
+        // Forward synchronously, before any await, so observers reading
+        // from the inner button right after setAttribute() on the host
+        // see the updated value.
+        const hasSpecificHandler = (
+            typeof (this as any)[`handleChange_${name}`] === 'function'
+        )
+        if (!hasSpecificHandler) {
+            if (newValue === null) {
+                this.button?.removeAttribute(name)
+            } else {
+                this.button?.setAttribute(name, newValue)
+            }
+        }
+        return super.attributeChangedCallback(
+            name,
+            oldValue as string,
+            newValue as string
+        )
     }
 
     /**
