@@ -1,6 +1,9 @@
 import { html } from './html.js'
 import { define } from '@substrate-system/web-component'
-import { SubstrateButton as SubstrateButtonLight } from './client.js'
+import {
+    SubstrateButton as SubstrateButtonLight,
+    FORWARDED_ATTRS,
+} from './client.js'
 // import Debug from '@substrate-system/debug'
 // const debug = Debug('button')
 
@@ -39,6 +42,12 @@ export class SubstrateButton extends SubstrateButtonLight {
         ]
         const text = this.innerHTML
 
+        const extraAttrs:Record<string, string> = {}
+        for (const attr of FORWARDED_ATTRS) {
+            const v = this.getAttribute(attr)
+            if (v !== null) extraAttrs[attr] = v
+        }
+
         const btnProps = {
             classes: classes.filter(Boolean),
             disabled,
@@ -47,6 +56,7 @@ export class SubstrateButton extends SubstrateButtonLight {
             type,
             name,
             ariaLabel,
+            extraAttrs,
         }
 
         this.innerHTML = html(btnProps, text)

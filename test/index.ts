@@ -190,6 +190,78 @@ test('type setter reflects to host and inner button', async t => {
     t.equal(el.type, 'submit', '.type getter returns the new value')
 })
 
+test('declarative type="button" reaches inner button', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="type-button-decl" type="button">
+            click
+        </substrate-button>
+    `
+    const el = await waitFor('#type-button-decl') as SubstrateButton
+    t.equal(el.button?.getAttribute('type'), 'button',
+        'inner button has type="button" from host attribute')
+})
+
+test('setAttribute("type", ...) propagates to inner button', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="type-attr-test">click</substrate-button>
+    `
+    const el = await waitFor('#type-attr-test') as SubstrateButton
+    el.setAttribute('type', 'button')
+    t.equal(el.button?.getAttribute('type'), 'button',
+        'setAttribute on host updates inner button')
+
+    el.setAttribute('type', 'submit')
+    t.equal(el.button?.getAttribute('type'), 'submit',
+        'subsequent setAttribute updates inner button')
+
+    el.removeAttribute('type')
+    t.equal(el.button?.getAttribute('type'), null,
+        'removeAttribute clears inner button type')
+})
+
+test('value attribute is forwarded', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="value-test" value="abc">click</substrate-button>
+    `
+    const el = await waitFor('#value-test') as SubstrateButton
+    t.equal(el.button?.getAttribute('value'), 'abc',
+        'inner button has value from host')
+
+    el.setAttribute('value', 'xyz')
+    t.equal(el.button?.getAttribute('value'), 'xyz',
+        'value change propagates to inner button')
+})
+
+test('form-related attributes are forwarded', async t => {
+    document.body.innerHTML += `
+        <substrate-button
+          id="form-test"
+          formaction="/submit"
+          formmethod="post"
+          formnovalidate
+          formtarget="_blank"
+        >click</substrate-button>
+    `
+    const el = await waitFor('#form-test') as SubstrateButton
+    t.equal(el.button?.getAttribute('formaction'), '/submit',
+        'formaction forwarded')
+    t.equal(el.button?.getAttribute('formmethod'), 'post',
+        'formmethod forwarded')
+    t.equal(el.button?.getAttribute('formnovalidate'), '',
+        'formnovalidate forwarded')
+    t.equal(el.button?.getAttribute('formtarget'), '_blank',
+        'formtarget forwarded')
+})
+
+test('title attribute is forwarded', async t => {
+    document.body.innerHTML += `
+        <substrate-button id="title-test" title="hello">x</substrate-button>
+    `
+    const el = await waitFor('#title-test') as SubstrateButton
+    t.equal(el.button?.getAttribute('title'), 'hello',
+        'inner button has title from host')
+})
+
 test('all done', () => {
     // @ts-expect-error tests
     window.testsFinished = true
