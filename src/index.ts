@@ -40,7 +40,6 @@ export class SubstrateButton extends SubstrateButtonLight {
             this.getAttribute('class'),
             spinning ? 'spinning' : null
         ]
-        const text = this.innerHTML
 
         const extraAttrs:Record<string, string> = {}
         for (const attr of FORWARDED_ATTRS) {
@@ -59,7 +58,25 @@ export class SubstrateButton extends SubstrateButtonLight {
             extraAttrs,
         }
 
-        this.innerHTML = html(btnProps, text)
+        // Move the host's existing child nodes (the label) into the
+        // button instead of stringifying them. Preserving node identity
+        // keeps framework reconcilers (e.g. Preact) able to update the
+        // label in place after the initial render.
+        const labelNodes = Array.from(this.childNodes)
+
+        // html() with empty content yields the button shell. The
+        // whitespace text nodes it leaves around .btn-content are
+        // cosmetic and intentionally left as-is.
+        const tmp = document.createElement('template')
+        tmp.innerHTML = html(btnProps, '')
+        const btn = tmp.content.querySelector('button')!
+        const content = btn.querySelector('.btn-content')!
+
+        // appendChild moves each node (same instance), it does not clone.
+        // Snapshotting labelNodes first prevents moving the freshly
+        // appended btn into its own span.
+        for (const node of labelNodes) content.appendChild(node)
+        this.appendChild(btn)
     }
 }
 
