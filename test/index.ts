@@ -262,6 +262,39 @@ test('title attribute is forwarded', async t => {
         'inner button has title from host')
 })
 
+test('preact: label content updates reactively', t => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+
+    // Initial render with label "one".
+    render(html`<${SubstrateButton.TAG}>one<//>`, container)
+    const el = container.querySelector(
+        SubstrateButton.TAG
+    ) as SubstrateButton
+
+    // connectedCallback rendered synchronously; the shell exists now.
+    const content = el.querySelector('.btn-content') as HTMLElement
+    t.ok(content, 'has a .btn-content element')
+
+    // The live text node Preact created and render() moved into place.
+    const textNode = content.firstChild as Text
+    t.ok(textNode, 'label text node exists inside .btn-content')
+
+    // Re-render with a new label value (simulates a signal/prop change).
+    render(html`<${SubstrateButton.TAG}>two<//>`, container)
+
+    // The same node instance is reused, still connected, now updated:
+    // this only holds if render() moved the node instead of replacing
+    // innerHTML (which would detach Preact's node).
+    t.equal(content.firstChild, textNode,
+        'the same text node instance is reused (not detached)')
+    t.ok(textNode.isConnected, 'the text node is still in the document')
+    t.equal(textNode.data, 'two',
+        'Preact updated the live node in place')
+
+    container.remove()
+})
+
 test('all done', () => {
     // @ts-expect-error tests
     window.testsFinished = true
